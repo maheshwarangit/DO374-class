@@ -1,0 +1,9 @@
+---
+server1:
+ hosts:
+  servera.lab.example.com:
+server2:
+ hosts: 
+  serverb.lab.example.com:
+  webserver2:
+   ansible_host: serverc.lab.example.com

@@ -1,0 +1,10 @@
+---
+- name: devs
+  members:
+   - user1
+   - user2
+  jobs: developer
+- name: ops
+  members:
+   - user3
+  jobs: manager

@@ -1,0 +1,33 @@
+---
+- name: Task Execution order
+  hosts: server2 
+  ignore_errors: yes 
+  order: reverse_sorted
+  pre_tasks:
+   - debug: 
+      msg: pre_task1
+     notify: pre1
+     changed_when: true
+  tasks:
+   - debug: 
+       msg: tasks_list
+     notify: task1
+     changed_when: true
+  roles:
+   - firewall
+  post_tasks:
+   - debug: 
+      msg: post_task1
+     notify: post1
+     changed_when: true
+
+  handlers:
+   - name: pre1
+     debug: 
+      msg: pre1 is success
+   - name: post1
+     debug: 
+      msg: post1 is success
+   - name: task1
+     debug: 
+      msg: task_list is success

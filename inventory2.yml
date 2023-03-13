@@ -1,0 +1,21 @@
+---
+all:
+ children:
+  ungrouped:
+    serverf:
+  load_balancer:
+    hosts:
+      servera.lab.example.com:
+        pack: httpd
+      serverb.lab.example.com:
+  webserver:
+    hosts:
+      serverc.lab.example.com:
+      serverd.lab.example.com:
+  dbserver:
+    hosts: 
+      servere: 
+  production:
+    children:
+      load_balancer:
+      webserver:

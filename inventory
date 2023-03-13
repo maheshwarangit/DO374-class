@@ -1,0 +1,12 @@
+[server1]
+servera.lab.example.com
+
+[server2]
+serverb.lab.example.com
+
+[server3]
+serverc.lab.example.com
+
+[web:children]
+server1
+server2

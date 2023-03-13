@@ -1,0 +1,25 @@
+---
+- name: Ensuring HAProxy is deployed
+  hosts: lb_servers
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Ensure HAProxy is installed and configured
+      ansible.builtin.include_role:
+        name: haproxy
+      vars:
+        haproxy_appservers:
+          - name: serverb.lab.example.com
+            ip: 172.25.250.11
+            port: 80
+          - name: serverc.lab.example.com
+            ip: 172.25.250.12
+            port: 80
+
+    - name: Ensure the firewall ports are opened
+      ansible.builtin.include_role:
+        name: firewall
+      vars:
+        firewall_rules:
+          - port: 80/tcp

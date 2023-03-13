@@ -1,0 +1,5 @@
+users:
+ - name: user1 
+   jobs: developer 
+ - name: user2 
+   jobs: manager

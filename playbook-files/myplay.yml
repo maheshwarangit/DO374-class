@@ -1,0 +1,55 @@
+---
+- name: Working with filters 
+  hosts: server1
+  vars: 
+   myvar2: [1,6,7,[17,18,[12,2],12,11,22],23,14] 
+   myvar3: ['hi','hello','world']
+   myvar4: 
+    fruit: apple 
+    dish: egg
+    drink: milk 
+   myvar5:
+    - key: Number1
+      value: one 
+    - key: Number2
+      value: two
+  tasks:
+   - ansible.builtin.debug:
+      msg: "{{ myvar | default(omit, 'No variable you provide') }}"
+     vars:
+      myvar1: httpd
+   - ansible.builtin.debug:
+      msg: "{{ myvar | default(omit) }}"
+   - debug:
+      msg: "{{ myvar2 }}"
+   - debug:
+      msg: "{{ myvar2[3][2][0] }}"
+   - assert:
+       that: 
+        "'{{ myvar2[3][2][1] }}'  is eq ('12')"
+   - debug:
+      msg: "{{ myvar2 | flatten | sort |to_yaml }}"
+   - debug:
+      msg: "{{ myvar2 | flatten| sum }}"
+   - debug:
+      msg: "{{ myvar2 |length }}"
+   - debug:
+      msg: "{{ myvar2 |sort |list }}"   # list1 : "{{ myvar2 |sort | list }}" => list 
+   - debug:
+      msg: "{{ myvar3 |sort |list }}"  
+   - debug:
+      msg: "{{ myvar3 |sort }}"    #  list2: "{{ myvar2 |sort }}" => json 
+   - debug:
+      msg: "{{ myvar2 |reverse |list }}"
+   - debug: 
+      msg: "{{ myvar2 |random }}"
+   - debug:
+      msg: "{{ myvar4 | dict2items }}"
+   - debug:
+      msg: "{{ myvar5 | items2dict }}"
+   - debug:
+      msg: "{{ myvar5[0]['value'] | upper }}"
+   - debug:
+      msg: "{{ myvar4['fruit'] | capitalize }}"
+   - debug:
+      msg: "{{ myvar2 | union(myvar3) }}"

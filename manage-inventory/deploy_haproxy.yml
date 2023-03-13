@@ -1,0 +1,29 @@
+---
+- name: Ensuring Apache HTTP Server is deployed
+  hosts: server2
+  become: true
+  gather_facts: false
+ 
+  tasks:
+    - name: Ensure Apache HTTP Server is installed and started
+      ansible.builtin.include_role:
+        name: apache
+ 
+    - name: Ensure the firewall ports are opened
+      ansible.builtin.include_role:
+        name: firewall
+
+- name: Ensuring HAProxy is deployed
+  hosts: server1
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Ensure HAProxy is installed and configured
+      ansible.builtin.include_role:
+        name: haproxy
+
+    - name: Ensure the firewall ports are opened
+      ansible.builtin.include_role:
+        name: firewall
+

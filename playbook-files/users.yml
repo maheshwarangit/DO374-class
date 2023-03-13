@@ -1,0 +1,32 @@
+---
+- name: Creating users and groups
+  hosts: server1 
+  tasks: 
+   - name: Create groups
+     group:
+      name: "{{ item.name }}"
+      state: present
+     loop: "{{ lookup('file', 'list.yml') |from_yaml }}"
+
+   - name: Creating users and adding in group 1
+     user:
+      name: "{{ item[1]}}"
+      state: present
+      groups: devs
+     loop: "{{ users |subelements('members')}}"
+     when: item[0]['jobs'] == "developer"
+     vars:
+      - users: "{{ lookup('file', 'list.yml') | from_yaml }}"
+
+   - name: Creating users and adding in group 1
+     user:
+      name: "{{ item[1]}}"
+      state: present
+      groups: ops
+     loop: "{{ users |subelements('members')}}"
+     when: item[0]['jobs'] == "manager"
+     vars:
+      - users: "{{ lookup('file', 'list.yml') | from_yaml }}"
+
+# item[0]['name'] | item.name 
+# item[1][1] 

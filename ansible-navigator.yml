@@ -1,0 +1,16 @@
+---
+ansible-navigator: 
+  execution-environment:
+    image: hub.lab.example.com/ee-supported-rhel8
+    pull:
+     policy: missing
+    environment-variables:
+     set: 
+      ANSIBLE_CONFIG: ./ansible.cfg
+  mode: stdout 
+  playbook-artifact:
+    enable: false
+  logging:
+    level: critical
+    file: /tmp/ans-log.txt 
+    append: False 

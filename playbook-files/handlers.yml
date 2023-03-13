@@ -1,0 +1,23 @@
+---
+- name: Working with Handlers 
+  hosts: server1 
+  tasks:
+   - debug: 
+      msg: task 1 will trigger handler 
+     changed_when: true 
+     notify: handlers
+   - meta: flush_handlers
+   - debug:
+      msg: task 2 
+     changed_when: yes 
+#    notify: handler2
+
+  handlers:
+   - name: handler1 
+     debug:
+      msg: handler1 will run
+     listen: handlers
+   - name: handler2
+     debug:
+      msg: handler2 will run
+     listen: handlers

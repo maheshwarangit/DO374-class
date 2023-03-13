@@ -1,0 +1,5 @@
+---
+- name: Creating users and groups
+  hosts: server2
+  roles:
+   - do374.cc.users

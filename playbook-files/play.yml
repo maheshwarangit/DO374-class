@@ -1,0 +1,24 @@
+---
+- name: Working with Tags 
+  hosts: web
+  gather_facts: 0
+  tasks: 
+   - setup:
+      filter: ansible_hostname
+#      gather_subset:
+ #      - '!all'
+  #     - 'network'
+   #    - '!min'
+     register: mysetup
+   - debug: 
+       var: mysetup
+   - name: User creation 
+     user:
+      name: demo1 
+      state: present 
+     tags: [never,user]
+   - name: Package install 
+     yum: 
+      name: httpd
+      state: present
+     tags: [never,pack]

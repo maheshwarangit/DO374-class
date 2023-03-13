@@ -1,0 +1,30 @@
+---
+- name: Working with Lookup plug-in 
+  hosts: server1 
+  tasks:
+   - name: List the hosts using Lookup 1
+     ansible.builtin.debug:
+      msg: "{{ myhosts | list }}"
+     vars:
+      myhosts: "{{ lookup('file', '/etc/hosts','/etc/issue' )}}"
+   - name: List the hosts using query 1
+     ansible.builtin.debug:
+      msg: "{{ myhosts | list }}"
+     vars:
+      myhosts: "{{ query('file', '/etc/hosts','/etc/issue' )}}"
+
+   - name: List the hosts using Lookup 2
+     ansible.builtin.debug:
+      msg: "{{ mydemo | upper }}"
+     vars:
+      mydemo: "{{ lookup('file', 'demo1','demo2' )}}"
+   - name: List the hosts using query 2
+     ansible.builtin.debug:
+      msg: "{{ mydemo | upper }}"
+     vars:
+      mydemo: "{{ query('file', 'demo1','demo2' )}}"
+   - name: List the files and directories is /
+     debug:
+      msg: "{{ myfiles |list}}"
+     vars: 
+      myfiles: "{{ query('lines', 'ls /')}}"
